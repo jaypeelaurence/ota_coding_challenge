@@ -19,7 +19,7 @@ Express
 NestJs
 DayJs
 UuidV4
-Database - JSON
+Database - JSON flat mock data
 ```
 
 ## Instructions:
