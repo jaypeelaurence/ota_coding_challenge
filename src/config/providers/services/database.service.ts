@@ -5,6 +5,7 @@ import * as dayjs from 'dayjs';
 
 import { Uuid } from 'common/models';
 import DatabaseConfig from 'config/providers/configs/database.config';
+import { HttpError } from 'common/exceptions';
 
 @Injectable()
 export default class DatabaseService {
@@ -22,7 +23,7 @@ export default class DatabaseService {
 
       console.log(`${this.collection} collection is loaded.`);
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
   
@@ -30,7 +31,7 @@ export default class DatabaseService {
     try {
       return (await this.dbConfig.readDb())[this.collection];
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
   
@@ -41,7 +42,7 @@ export default class DatabaseService {
     try {
       return (await this.dbConfig.readDb())[this.collection].find((d) => d[key] === value);
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
   
@@ -65,7 +66,7 @@ export default class DatabaseService {
 
       return _payload;
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
   
@@ -93,7 +94,7 @@ export default class DatabaseService {
 
       return _payload;
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
   
@@ -103,7 +104,7 @@ export default class DatabaseService {
         [this.collection]: (await this.dbConfig.readDb())[this.collection].filter((d) => d.uuid !== uuid)
       });
     } catch(err) {
-      console.log(err.message);
+      throw new HttpError(err.message);
     }
   }
 }
