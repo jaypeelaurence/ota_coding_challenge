@@ -19,6 +19,7 @@ Express
 NestJs
 DayJs
 UuidV4
+Database - JSON
 ```
 
 ## Instructions:
