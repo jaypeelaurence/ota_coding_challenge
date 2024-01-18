@@ -43,7 +43,7 @@ export default class NoteRepository {
     return await this.dbService.create(payload) as Note;
   }
 
-async update(
+  async update(
     uuid: Uuid,
     payload: NoteUpdateRequest,
   ): Promise<Note> {
