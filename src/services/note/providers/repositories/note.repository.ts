@@ -28,13 +28,7 @@ export default class NoteRepository {
     key: string,
     value: string | number | boolean | Uuid | any,
   ): Promise<Note> {
-    const data = await this.dbService.findOne(key, value) as Note;
-
-    if (!data) {
-      // notfound
-    }
-
-    return data;
+    return await this.dbService.findOne(key, value) as Note;;
   }
 
   async findByUuid(
