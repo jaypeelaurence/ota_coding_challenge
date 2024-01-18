@@ -27,6 +27,11 @@ Database - JSON flat mock data
 #### Install dependencies
 ``` npm install ```
 
+```
+The application is running on PORT=3000 by default.
+you can change it in the .env file. 
+```
+
 #### Run on Dev environment
 ``` npm run start:dev ```
 
