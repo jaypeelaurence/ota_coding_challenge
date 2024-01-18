@@ -6,6 +6,5 @@ export interface Data {
 
 export default interface Paginate {
   data?: Data[] | Data;
-
   meta?: Meta;
 }

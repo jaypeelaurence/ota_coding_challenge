@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { toTitleCase } from 'utils/string';
 
 import { Exception } from 'common/models';
 
@@ -13,7 +12,7 @@ export default class NotFoundException extends HttpException {
 
     if (collection)
       errorMessage += collection
-        ? `in ${toTitleCase(collection)} collection `
+        ? `in ${collection} collection `
         : '';
 
     errorMessage += 'not found.';

@@ -1,16 +1,19 @@
-import { IsNotEmpty, IsOptional, IsString, ValidateIf } from 'class-validator';
-import { UUID } from 'crypto';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
-import { isUuid } from 'uuidv4';
+import { Uuid } from 'common/models';
 
 export default class NoteCreateRequest {
     @IsOptional()
-    @ValidateIf((v: NoteCreateRequest) => isUuid(v.uuid))
-    uuid?: UUID;
+    @IsUUID()
+    uuid?: Uuid;
 
     @IsOptional()
-    @ValidateIf((v: NoteCreateRequest) => isUuid(v.actorUuid))
-    actorUuid?: UUID;
+    @IsUUID()
+    actorUuid?: Uuid;
+
+    @IsNotEmpty()
+    @IsString()
+    title: string;
 
     @IsNotEmpty()
     @IsString()

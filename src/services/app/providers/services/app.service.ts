@@ -1,15 +1,16 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import DatabaseService from 'databases';
+
+import { DatabaseConfig } from 'config/providers/configs';
 
 @Injectable()
 export class AppService implements OnModuleInit {
   constructor(
-    private readonly databaseService: DatabaseService,
+    private readonly databaseConfig: DatabaseConfig,
   ) {
-    this.databaseService = databaseService;
+    this.databaseConfig = databaseConfig;
   }
 
   async onModuleInit(): Promise<void> {
-    await this.databaseService.init();
+    await this.databaseConfig.init();
   }
 }

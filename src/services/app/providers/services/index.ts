@@ -1,4 +1,4 @@
 import { AppService } from './app.service';
-import DatabaseService from '../../../../databases/database.service';
+// import { DatabaseConfig } from 'services/app/config';
 
-export default [AppService, DatabaseService];
+export default [AppService];

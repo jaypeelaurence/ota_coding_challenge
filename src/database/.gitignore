@@ -1,6 +1,5 @@
 *
 
-!*.ts
 !test.json
 
 !.gitignore

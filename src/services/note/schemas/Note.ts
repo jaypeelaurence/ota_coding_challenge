@@ -1,15 +1,19 @@
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { UUID } from 'crypto';
+import { IsDate, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
+import { Uuid } from 'common/models';
 import { Paginate } from 'common/models';
 
 export class Note {
     @IsNotEmpty()
-    uuid: UUID;
+    uuid: Uuid;
 
     @IsOptional()
+    @IsUUID()
+    actorUuid?: Uuid;
+
+    @IsNotEmpty()
     @IsString()
-    actorUuid?: UUID;
+    title: string;
 
     @IsNotEmpty()
     @IsString()

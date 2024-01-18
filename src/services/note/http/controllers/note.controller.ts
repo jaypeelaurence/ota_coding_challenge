@@ -6,41 +6,38 @@ import {
   Delete,
   Post,
   Put,
-  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 
-import { UUID } from 'crypto';
-
-import { Filter, Response, Uuid } from 'common/models';
+import { Response, Uuid } from 'common/models';
+import { NoteService } from 'services/note/providers/services';
 import { NoteCreateRequest, NoteUpdateRequest } from '../requests';
 
 export const PREFIX_CONTROLLER = 'notes';
 
 @Controller(PREFIX_CONTROLLER)
 export default class NoteController {
+  constructor(
+    private readonly noteService: NoteService,
+  ) {
+    this.noteService = noteService;
+  }
+
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async getNotes(
-    @Query() filter: Filter,
-  ): Promise<Response> {
-    return {
-      message: 'Notes',
-    };
+  async getNotes(): Promise<Response> {
+    return await this.noteService.findBy();
   }
   
-  @Get('$uuid')
+  @Get(':uuid')
   @UsePipes(new ValidationPipe({ transform: true }))
   async getNoteByUuid(
-    @Param() { uuid }: { uuid: UUID },
+    @Param() { uuid }: Uuid,
   ): Promise<Response> {
-    return {
-      data: {
-        uuid,
-      },
-      message: 'Notes',
-    };
+    const data = await this.noteService.findByUuid(uuid);
+
+    return { data };
   }
   
   @Post()
@@ -49,40 +46,32 @@ export default class NoteController {
     @Body() payload: NoteCreateRequest,
   ): Promise<Response> {
     return {
-      data: {
-        payload,
-      },
-      message: 'Notes',
+      data: await this.noteService.createNote(payload),
+      message: 'Successfully created a note.',
     };
   }
   
-  @Put('$uuid')
+  @Put(':uuid')
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   async updateNote(
     @Param() { uuid }: Uuid,
     @Body() payload: NoteUpdateRequest,
   ): Promise<Response> {
     return {
-      data: {
-        uuid,
-        payload,
-      },
-      message: 'Notes',
+      data: await this.noteService.updateNote(uuid, payload),
+      message: 'Successfully updated a note.',
     };
   }
   
-  @Delete('$uuid')
+  @Delete(':uuid')
   @UsePipes(new ValidationPipe({ transform: true }))
   async deleteNote(
     @Param() { uuid }: Uuid,
-    @Body() payload: { [key: string]: any },
   ): Promise<Response> {
+    await this.noteService.deleteNote(uuid);
+
     return {
-      data: {
-        uuid,
-        payload,
-      },
-      message: 'Notes',
+      message: 'Successfully deleted a note.',
     };
   }
 }

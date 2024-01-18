@@ -1,8 +1,8 @@
-import { UUID } from 'crypto';
+import { Uuid } from ".";
 
 export default interface ExceptionParams {
   collection?: string;
-  uuid?: UUID;
+  uuid?: Uuid | Uuid[];
   message?: string;
   [key: string]: any;
 }
