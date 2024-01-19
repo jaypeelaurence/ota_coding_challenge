@@ -6,13 +6,9 @@ import NoteCreateRequest from './NoteCreate.request';
 export default class NoteUpdateRequest extends PartialType(NoteCreateRequest) {
   @IsOptional()
   @IsString()
-  content: string;
+  content?: string;
 
   @IsOptional()
   @IsString()
-  title: string;
-  
-  @IsOptional()
-  @IsDate()
-  updatedAt: Date;
+  title?: string;
 }

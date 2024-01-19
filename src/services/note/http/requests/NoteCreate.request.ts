@@ -1,21 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
-
-import { Uuid } from 'common/models';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export default class NoteCreateRequest {
-    @IsOptional()
-    @IsUUID()
-    uuid?: Uuid;
-
-    @IsOptional()
-    @IsUUID()
-    actorUuid?: Uuid;
-
     @IsNotEmpty()
     @IsString()
     title: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    content: string;
+    content?: string;
 }
